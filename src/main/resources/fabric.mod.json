@@ -3,10 +3,13 @@
   "id": "nowarnforunknownpacket",
   "version": "${version}",
   "name": "noWarnForUnknownPacket",
-  "description": "",
-  "authors": [],
+  "description": "remove annoying client side warnings in your log",
+  "authors": ["CrazyH"],
   "contact": {
-    "repo": "https://github.com/CrazyHPi/noWarnForUnknownPacket"
+    "repo": "https://github.com/CrazyHPi/noWarnForUnknownPacket",
+    "homepage": "https://github.com/CrazyHPi/noWarnForUnknownPacket",
+    "issues": "https://github.com/CrazyHPi/noWarnForUnknownPacket/issues",
+    "sources": "https://github.com/CrazyHPi/noWarnForUnknownPacket"
   },
   "license": "LGPL-3.0",
   "icon": "assets/nowarnforunknownpacket/icon.png",
