@@ -26,7 +26,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
                     target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"
             )
     )
-    private void doNothing(Logger instance, String s, Object o) {
+    private void unknownScoreBoard(Logger instance, String s, Object o) {
     }
 
 //    @Inject(
