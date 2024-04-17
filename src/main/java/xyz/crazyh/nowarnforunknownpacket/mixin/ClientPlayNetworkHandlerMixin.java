@@ -2,10 +2,8 @@ package xyz.crazyh.nowarnforunknownpacket.mixin;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardObjective;
-import net.minecraft.scoreboard.ServerScoreboard;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.packet.s2c.play.EntityPassengersSetS2CPacket;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,4 +39,16 @@ public abstract class ClientPlayNetworkHandlerMixin {
 //            ci.cancel();
 //        }
 //    }
+
+    @Inject(
+            method = "onEntityPassengersSet",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void unknownEntity(EntityPassengersSetS2CPacket packet, CallbackInfo ci) {
+        Entity entity = this.world.getEntityById(packet.getId());
+        if (entity == null) {
+            ci.cancel();
+        }
+    }
 }
