@@ -1,13 +1,24 @@
 package xyz.crazyh.nowarnforunknownpacket.mixin;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.ScoreboardObjective;
+import net.minecraft.scoreboard.ServerScoreboard;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayNetworkHandlerMixin {
+    @Shadow
+    private ClientWorld world;
+
     @Redirect(
             method = "onScoreboardPlayerUpdate",
             at = @At(
@@ -16,6 +27,18 @@ public abstract class ClientPlayNetworkHandlerMixin {
             )
     )
     private void doNothing(Logger instance, String s, Object o) {
-        //do nothing for that log
     }
+
+//    @Inject(
+//            method = "onScoreboardPlayerUpdate",
+//            at = @At("HEAD"),
+//            cancellable = true
+//    )
+//    private void doNothing(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
+//        String objectiveName = packet.getObjectiveName();
+//        ScoreboardObjective scoreboardObjective = this.world.getScoreboard().getNullableObjective(objectiveName);
+//        if (packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE && scoreboardObjective == null) {
+//            ci.cancel();
+//        }
+//    }
 }

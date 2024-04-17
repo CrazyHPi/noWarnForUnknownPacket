@@ -6,8 +6,7 @@ import net.minecraft.client.MinecraftClient;
 public class NoWarnForUnknownPacket implements ModInitializer {
     @Override
     public void onInitialize() {
-        System.out.println("hello");
-    }
 
+    }
 
 }
