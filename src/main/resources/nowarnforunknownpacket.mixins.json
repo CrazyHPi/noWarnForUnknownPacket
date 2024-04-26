@@ -4,6 +4,7 @@
   "package": "xyz.crazyh.nowarnforunknownpacket.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ClientConfigurationNetworkHandlerMixin",
     "WorldChunkMixin"
   ],
   "client": [

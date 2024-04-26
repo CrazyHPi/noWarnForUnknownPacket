@@ -3,6 +3,7 @@ package xyz.crazyh.nowarnforunknownpacket.mixin;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.s2c.play.EntityPassengersSetS2CPacket;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
@@ -50,5 +51,14 @@ public abstract class ClientPlayNetworkHandlerMixin {
         if (entity == null) {
             ci.cancel();
         }
+    }
+
+    @Inject(
+            method = "method_52801",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void unknownPayload(CustomPayload customPayload, CallbackInfo ci) {
+        ci.cancel();
     }
 }
