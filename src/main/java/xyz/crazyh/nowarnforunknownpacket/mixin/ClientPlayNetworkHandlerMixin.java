@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ClientPlayNetworkHandler.class)
+@Mixin(value = ClientPlayNetworkHandler.class, priority = 1111)
 public abstract class ClientPlayNetworkHandlerMixin {
     @Shadow
     private ClientWorld world;
@@ -28,20 +28,20 @@ public abstract class ClientPlayNetworkHandlerMixin {
     private void unknownScoreBoard(Logger instance, String s, Object o) {
     }
 
-//    @Inject(
-//            method = "onScoreboardPlayerUpdate",
-//            at = @At("HEAD"),
-//            cancellable = true
-//    )
-//    private void doNothing(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
-//        String objectiveName = packet.getObjectiveName();
-//        ScoreboardObjective scoreboardObjective = this.world.getScoreboard().getNullableObjective(objectiveName);
-//        if (packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE && scoreboardObjective == null) {
-//            ci.cancel();
-//        }
-//    }
+/*    @Inject(
+            method = "onScoreboardPlayerUpdate",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void doNothing(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
+        String objectiveName = packet.getObjectiveName();
+        ScoreboardObjective scoreboardObjective = this.world.getScoreboard().getNullableObjective(objectiveName);
+        if (packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE && scoreboardObjective == null) {
+            ci.cancel();
+        }
+    }*/
 
-    @Inject(
+/*    @Inject(
             method = "onEntityPassengersSet",
             at = @At("HEAD"),
             cancellable = true
@@ -51,14 +51,36 @@ public abstract class ClientPlayNetworkHandlerMixin {
         if (entity == null) {
             ci.cancel();
         }
-    }
+    }*/
 
-    @Inject(
+/*    @Redirect(
+            method = "onEntityPassengersSet",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;)V"
+            )
+    )
+    private void unknownEntity(Logger instance, String s){
+
+    }*/
+
+/*    @Inject(
             method = "method_52801",
             at = @At("HEAD"),
             cancellable = true
     )
     private void unknownPayload(CustomPayload customPayload, CallbackInfo ci) {
         ci.cancel();
+    }*/
+
+    @Redirect(
+            method = "method_52801",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"
+            )
+    )
+    private void unknownPayload(Logger instance, String s, Object o) {
+
     }
 }
