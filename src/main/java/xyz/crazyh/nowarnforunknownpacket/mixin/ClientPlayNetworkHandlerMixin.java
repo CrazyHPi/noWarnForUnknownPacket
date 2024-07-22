@@ -19,7 +19,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     private ClientWorld world;
 
     @Redirect(
-            method = "onScoreboardPlayerUpdate",
+            method = "onScoreboardScoreUpdate",
             at = @At(
                     value = "INVOKE",
                     target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"
@@ -47,14 +47,14 @@ public abstract class ClientPlayNetworkHandlerMixin {
             cancellable = true
     )
     private void unknownEntity(EntityPassengersSetS2CPacket packet, CallbackInfo ci) {
-        Entity entity = this.world.getEntityById(packet.getId());
+        Entity entity = this.world.getEntityById(packet.getEntityId());
         if (entity == null) {
             ci.cancel();
         }
     }
 
     @Inject(
-            method = "method_52801",
+            method = "warnOnUnknownPayload",
             at = @At("HEAD"),
             cancellable = true
     )
